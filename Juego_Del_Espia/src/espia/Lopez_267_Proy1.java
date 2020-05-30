@@ -5,10 +5,10 @@ import java.util.*;
 
 public class Lopez_267_Proy1 implements ActionListener{
 	private JFrame ventana;
-	private JButton btn_pos, btn_start, btn_temp, btn_espia;
+	private JButton btn_pos, btn_start, btn_temp, btn_espia, btn_respuesta, btn_mover;
 	private Random rnd;
 	JLabel lbl_titulo, lbl_fila, lbl_columna, lbl_titulo2, lbl_norte, lbl_sur, lbl_este, lbl_oeste, lbl_intentos, lbl_espia, lbl_botones;
-	JTextField tf_intentos, tf_espia, tf_botones;
+	JTextField tf_intentos, tf_espia, tf_botones, tf_respuesta;
 
 
 	public static void main(String[] args){
@@ -67,13 +67,14 @@ public class Lopez_267_Proy1 implements ActionListener{
 			ventana.add(btn_pos);
 		}
 
-		btn_start = new JButton("COMENZAR");
+		btn_start = new JButton("ESCONDER");
 		btn_start.setBounds(600, 510, 150, 30);
 		btn_start.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				
 				if(e.getSource() == btn_start) 
 					btn_espia = new JButton();
+					JOptionPane.showMessageDialog(null, "Se ha ocultado el espia");
 					btn_espia.setBounds((rnd.nextInt(10)*30+600), rnd.nextInt(10)*30+150, 25, 25);
 					tf_espia.setText(String.valueOf(btn_espia.getX())+" "+String.valueOf(btn_espia.getY()));
 					tf_intentos.setText("0");
@@ -95,9 +96,9 @@ public class Lopez_267_Proy1 implements ActionListener{
 		ventana.add(lbl_espia);
 
 		tf_espia = new JTextField();
-		tf_espia.setBounds(690, 580, 80, 20);
-		tf_espia.setVisible(false);
-		ventana.add(tf_espia);
+		//tf_espia.setBounds(690, 580, 80, 20);
+		//tf_espia.setVisible(false);
+		//ventana.add(tf_espia);
 		
 		lbl_botones = new JLabel("Usuario"); //solo para verificar el boton presionado por el usuario
 		lbl_botones.setBounds(600, 610, 80, 20);
@@ -109,12 +110,59 @@ public class Lopez_267_Proy1 implements ActionListener{
 		tf_botones.setVisible(false);
 		ventana.add(tf_botones);
 		
+		tf_respuesta = new JTextField();
+		btn_respuesta = new JButton("MOSTRAR RESPUESTA");
+		btn_respuesta.setBounds(600, 640, 200, 20);
+		//btn_respuesta.addActionListener(this);
+		btn_respuesta.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				tf_respuesta.setVisible(false);
+				
+				if(e.getSource() == btn_respuesta) {
+					tf_respuesta.setVisible(true);
+					tf_respuesta.setText(String.valueOf((btn_espia.getX()-600)/30+1)+", "+String.valueOf(((btn_espia.getY()*-1)+150)/30+10));
+					tf_respuesta.setBounds(600, 680, 50, 20);
+					ventana.add(tf_respuesta);
+				}
+				
+			}
+		});
+		ventana.add(btn_respuesta);
+		
+		btn_mover = new JButton("MOVER ESPIA");
+		btn_mover.setBounds(600, 710, 200, 20);
+		btn_mover.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				
+				if(e.getSource() == btn_mover) {
+					JOptionPane.showMessageDialog(null, "Ha movido al espia");
+					btn_espia.setBounds((rnd.nextInt(10)*30+600), rnd.nextInt(10)*30+150, 25, 25);
+					tf_espia.setText(String.valueOf(btn_espia.getX())+" "+String.valueOf(btn_espia.getY()));
+				}
+				
+			}
+		});
+		ventana.add(btn_mover);
+		
+		
 		rnd = new Random();
 
 		ventana.setVisible(true);
 
 	}
 	
+	/*public void espia(ActionEvent a) {
+		
+		tf_respuesta.setVisible(false);
+		
+		if(a.getSource() == btn_respuesta) {
+			tf_respuesta.setVisible(true);
+			tf_respuesta.setText(String.valueOf((btn_espia.getX()-600)/30+1)+", "+String.valueOf(((btn_espia.getY()*-1)+150)/30+10));
+			tf_respuesta.setBounds(600, 670, 50, 20);
+			ventana.add(tf_respuesta);
+		}
+		
+	}*/
 
 	public void actionPerformed(ActionEvent e) {
 		
@@ -125,8 +173,8 @@ public class Lopez_267_Proy1 implements ActionListener{
 			int x = btn_temp.getX(); //para obtener las coordenadas del boton que presiona el usuario
 			int y = btn_temp.getY();
 			
-			btn_temp.setText(String.valueOf(x)+" "+String.valueOf(y));
-			tf_botones.setText(btn_temp.getText());
+			//btn_temp.setText(String.valueOf(x)+" "+String.valueOf(y));
+			//tf_botones.setText(btn_temp.getText());
 			
 			System.out.println();
 			
